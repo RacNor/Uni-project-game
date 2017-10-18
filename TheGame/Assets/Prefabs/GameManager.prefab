@@ -1,0 +1,80 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1803462692941044}
+  m_IsPrefabParent: 1
+--- !u!1 &1803462692941044
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4082696110832628}
+  - component: {fileID: 114567111397922240}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4082696110832628
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1803462692941044}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114567111397922240
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1803462692941044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7abfcefabcd5e94a901a3a3b892cd00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  numRooms:
+    mMin: 4
+    mMax: 10
+  roomWidth:
+    mMin: 4
+    mMax: 10
+  roomHeight:
+    mMin: 4
+    mMax: 10
+  coordinates:
+    mMin: 50
+    mMax: 60
+  rows: 100
+  columns: 100
+  mFloor:
+  - {fileID: 106160, guid: 6b156ea7b856e304987cd569141c9ea2, type: 2}
+  - {fileID: 137908, guid: 58d9d4e4dfd200d4bb7bc180da38d98c, type: 2}
+  - {fileID: 125636, guid: 7e2fe6845c3f5c344aea6ce9d39dbb72, type: 2}
+  - {fileID: 177044, guid: 0956c4a8918102340a962775c162929f, type: 2}
+  - {fileID: 109612, guid: 01f7a8bf80843d840a85493151242eb7, type: 2}
+  - {fileID: 127736, guid: d53b8437b76487e40ac28bd00b77a73e, type: 2}
+  - {fileID: 110520, guid: e8db7ae4518b5404bb2cac089ffb6e6d, type: 2}
+  - {fileID: 110520, guid: 1fd9dd850a103e94599c0871c2d8461e, type: 2}
+  mWall:
+  - {fileID: 1005967608004258, guid: ca907581271fdb743b7b63f270eca16d, type: 2}
+  mDoor:
+  - {fileID: 1495292325328062, guid: 56be3a9e5db45cd40bddb17edcca31fb, type: 2}
