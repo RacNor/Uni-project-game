@@ -11,6 +11,8 @@ public class Room
     public int roomHeight;
     public bool isMainRoom;
     public bool isConnectedToMain;
+    public bool PlayerInTheRoom;
+    public bool ExitInTheRoom;
     public List<Room> connectedRooms;
     public List<Utils.Coord> edges;
     public Room()
@@ -23,6 +25,8 @@ public class Room
     {
         isMainRoom = true;
         isConnectedToMain = true;
+        PlayerInTheRoom = false;
+        ExitInTheRoom = false;
         roomWidth = widthRange.Random;
         roomHeight = heightRange.Random;
         xPos = Mathf.RoundToInt(columns / 2f - roomWidth / 2f);
@@ -68,6 +72,7 @@ public class Room
     }
     void AddEdges(int x, int y, int width, int height)
     {
+        edges.Clear();
         int maxX = x + width - 2;
         int maxY = y + height - 2;
         for (int xCoord = x; xCoord < maxX + 1; xCoord++)
@@ -107,16 +112,25 @@ public class Room
         switch (intersectCase)
         {
             case 0:
-                min1 = xPos;
-                max1 = xPos + roomWidth - 1;
-                min2 = otherRoom.xPos;
-                max2 = otherRoom.xPos + otherRoom.roomWidth - 1;
+                //min1 = xPos;
+                min1 = xPos-1;
+                //max1 = xPos + roomWidth - 1;
+                max1 = xPos + roomWidth;
+                //min2 = otherRoom.xPos;
+                //max2 = otherRoom.xPos + otherRoom.roomWidth - 1;
+                min2 = otherRoom.xPos-1;
+                max2 = otherRoom.xPos + otherRoom.roomWidth;
                 break;
             default:
-                min1 = yPos;
+                /*min1 = yPos;
                 max1 = yPos + roomHeight - 1;
                 min2 = otherRoom.yPos;
-                max2 = otherRoom.yPos + otherRoom.roomHeight - 1;
+                max2 = otherRoom.yPos + otherRoom.roomHeight - 1;*/
+
+                min1 = yPos-1;
+                max1 = yPos + roomHeight;
+                min2 = otherRoom.yPos-1;
+                max2 = otherRoom.yPos + otherRoom.roomHeight;
                 break;
         }
         if ((max1 >= min2) && (min1 <= max2))

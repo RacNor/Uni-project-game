@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4082696110832628}
   - component: {fileID: 114567111397922240}
+  - component: {fileID: 114319033484602714}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -40,6 +41,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114319033484602714
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1803462692941044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3be8a4ca479ea4aa3cdb1933216c15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114567111397922240
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -78,3 +90,5 @@ MonoBehaviour:
   - {fileID: 1005967608004258, guid: ca907581271fdb743b7b63f270eca16d, type: 2}
   mDoor:
   - {fileID: 1495292325328062, guid: 56be3a9e5db45cd40bddb17edcca31fb, type: 2}
+  mEnemy: {fileID: 1965448695595628, guid: 7e07f42de3f60a14d938d279b86d2b0d, type: 2}
+  mExit: {fileID: 1253225308109886, guid: b7b5778f611eda04eb92aa5b785fded2, type: 2}

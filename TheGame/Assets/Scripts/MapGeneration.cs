@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class MapGeneration : MonoBehaviour
 {
@@ -22,29 +23,68 @@ public class MapGeneration : MonoBehaviour
     public GameObject[] mFloor;
     public GameObject[] mWall;
     public GameObject[] mDoor;
+    public GameObject mEnemy;
+    public GameObject mExit;
     private GameObject mBoardHolder;
-    TileType[,] map;
-    void Start()
+    private TileType[,] map;
+    private ArrayList availablePositions = new ArrayList();
+    public void GenerateLevel(int level)
     {
         mBoardHolder = new GameObject("BoardHolder");
-        generate();
-
+        Generate(level);
     }
-    void generate()
+    private void Generate(int level=1)
     {
         map = new TileType[columns, rows];
         CreateRooms();
         Intersect();
-        ClearConnectedRooms();
+        availablePositions = new ArrayList();
+        AddPositions();
+        //ClearConnectedRooms();
         corridors = new List<Corridor>();
         ConnectRooms();
         InnerWallPadding(5, TileType.UnbreakableWalls);
         BreakableWalls();
         InnerWallPadding();
         InitializeTyles();
-        initCorridors();
+        InitCorridors();
         PlaceGameobject();
-        //ConnectRooms();
+
+        for(int i = 0; i < 5; i++)
+        {
+            Vector3 position = GetRandomPosition();
+            GameObject tileInstance = Instantiate(mEnemy,position, Quaternion.identity) as GameObject;
+            tileInstance.transform.parent = mBoardHolder.transform;
+        }
+        GameObject exit = Instantiate(mExit, GetRandomPosition(), Quaternion.identity) as GameObject;
+        exit.transform.parent = mBoardHolder.transform;
+    }
+
+    private void AddPositions()
+    {
+        foreach(Room room in rooms)
+        {
+            /*if (room.PlayerInTheRoom)
+            {
+                continue;
+            }*/
+            int xEnd = room.xPos + room.roomWidth-1;
+            int yEnd = room.yPos + room.roomHeight-1;
+            for (int x = room.xPos; x < xEnd; x++)
+            {
+                for (int y = room.yPos; y < yEnd; y++)
+                {
+                    availablePositions.Add(new Vector3(x, y, 0f));
+                }
+            }
+        }
+    }
+    private Vector3 GetRandomPosition()
+    {
+        int index = Random.Range(0, availablePositions.Count);
+        Vector3 vector =(Vector3) availablePositions[index];
+        availablePositions.RemoveAt(index);
+        return vector;
     }
 
     private void BreakableWalls(int padding = 4, TileType tileType = TileType.BreakableWalls)
@@ -226,9 +266,8 @@ public class MapGeneration : MonoBehaviour
             ConnectRooms(true);
         }
     }
-    private void initCorridors()
+    private void InitCorridors()
     {
-
         foreach (Corridor corridor in corridors)
         {
             int a = 0;
@@ -245,7 +284,6 @@ public class MapGeneration : MonoBehaviour
                 }
                 a++;
             }
-
         }
     }
     private void CreatePassage(Room optimalARoom, Room optimalBRoom, Utils.Coord optimaslACoord, Utils.Coord optimaslBCoord)
@@ -290,20 +328,22 @@ public class MapGeneration : MonoBehaviour
             {
                 for (int y = 0; y < columns; y++)
                 {
+                    //InstantiateFromArray(mFloor, x, y);
+                    //InstantiateFromArray(mDoor, x, y);
+                    //InstantiateFromArray(mFloor, x, y);
+                    //InstantiateFromArray(mWall, x, y);
                     if (map[x, y] == TileType.Door)
                     {
                         InstantiateFromArray(mDoor, x, y);
                     }
-                    //InstantiateFromArray(mFloor, x, y);
                     if (map[x, y] == TileType.Floor || map[x,y]==TileType.Corridor)
-                     {
+                    {
                          InstantiateFromArray(mFloor, x, y);
-                     }
-                    if (map[x, y] == TileType.Edges)
+                    }
+                    if (map[x, y] == TileType.Edges || map[x,y]==TileType.BreakableWalls)
                     {
                         InstantiateFromArray(mWall, x, y);
                     }
-                    
                 }
             }
         }
@@ -323,8 +363,8 @@ public class MapGeneration : MonoBehaviour
         // Set the tile's parent to the board holder.
         tileInstance.transform.parent = mBoardHolder.transform;
     }
-    /*
-    void OnDrawGizmos()
+    
+    /*void OnDrawGizmos()
     {
         if (map != null)
         {
