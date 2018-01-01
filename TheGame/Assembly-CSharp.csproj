@@ -51,10 +51,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\CameraController.cs" />
      <Compile Include="Assets\Scripts\Corridor.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
      <Compile Include="Assets\Scripts\IntRange.cs" />
+     <Compile Include="Assets\Scripts\LanceController.cs" />
      <Compile Include="Assets\Scripts\MapGeneration.cs" />
+     <Compile Include="Assets\Scripts\PlayerController.cs" />
      <Compile Include="Assets\Scripts\Room.cs" />
      <Compile Include="Assets\Scripts\Utils.cs" />
  <Reference Include="UnityEngine.UI">
