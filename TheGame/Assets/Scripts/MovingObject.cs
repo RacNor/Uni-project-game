@@ -29,9 +29,11 @@ public abstract class MovingObject : MonoBehaviour
         boxCollider.enabled = true;
         if (hit.transform == null)
         {
+            print("ye");
             StartCoroutine(SmoothMovement(end));
             return true;
         }
+        print("nope");
         return false;
     }
 
@@ -50,14 +52,16 @@ public abstract class MovingObject : MonoBehaviour
     }
     protected IEnumerator SmoothMovement(Vector3 end)
     {
-        float sqrRemainingDistance = (transform.position - end).sqrMagnitude;
+        rigidBody.MovePosition(end);
+        yield return null;
+        /*float sqrRemainingDistance = (transform.position - end).sqrMagnitude;
         while(sqrRemainingDistance> float.Epsilon)
         {
             Vector3 newPosition = Vector3.MoveTowards(rigidBody.position, end, inverseMoveTime * Time.deltaTime);
             rigidBody.MovePosition(newPosition);
             sqrRemainingDistance = (transform.position - end).sqrMagnitude;
             yield return null;
-        }
+        }*/
     }
     protected abstract void OnCantMove<T>(T component)
         where T : Component;

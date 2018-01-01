@@ -55,9 +55,12 @@ public class MapGeneration : MonoBehaviour
             Vector3 position = GetRandomPosition();
             GameObject tileInstance = Instantiate(mEnemy,position, Quaternion.identity) as GameObject;
             tileInstance.transform.parent = mBoardHolder.transform;
+            print("r");
         }
         GameObject exit = Instantiate(mExit, GetRandomPosition(), Quaternion.identity) as GameObject;
         exit.transform.parent = mBoardHolder.transform;
+        GameObject player= Instantiate(GameManager.instance.player, GetRandomPosition(), Quaternion.identity) as GameObject;
+        player.transform.parent = mBoardHolder.transform;
     }
 
     private void AddPositions()
