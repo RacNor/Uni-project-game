@@ -52,8 +52,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e3be8a4ca479ea4aa3cdb1933216c15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  turnDelay: 0.1
   player: {fileID: 1824789338253564, guid: 905b11445da08b94e8bbe391a53851e5, type: 2}
+  mapScript: {fileID: 0}
   score: 0
+  playersTurn: 1
 --- !u!114 &114653958276266210
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -87,3 +90,4 @@ MonoBehaviour:
   - {fileID: 1495292325328062, guid: 56be3a9e5db45cd40bddb17edcca31fb, type: 2}
   mEnemy: {fileID: 1965448695595628, guid: 7e07f42de3f60a14d938d279b86d2b0d, type: 2}
   mExit: {fileID: 1253225308109886, guid: b7b5778f611eda04eb92aa5b785fded2, type: 2}
+  mCamera: {fileID: 1153669383746864, guid: 225ed50f02e8f9149a3973db14d1a614, type: 2}

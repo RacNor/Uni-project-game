@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class Player : MovingObject {
 
     private int score;
@@ -17,18 +17,34 @@ public class Player : MovingObject {
         score = GameManager.instance.score;
         base.Start();
 	}
-    protected override void AttemptToMove<T>(int xDir, int yDir)
+    protected override bool AttemptToMove<T>(int xDir, int yDir)
     {
-        base.AttemptToMove<T>(xDir, yDir);
-        RaycastHit2D hit;
+        bool result=base.AttemptToMove<T>(xDir, yDir);
+        if (result)
+        {
+            GameManager.instance.playersTurn = false;
+            return result;
+        }
+        //RaycastHit2D hit;
+        
+        return result;
 
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Exit")
         {
-           // Invoke("Restart", 0.5f);
-           // enabled = false;
+            Invoke("Restart", 0.5f);
+
+            //Disable the player object since level is over.
+            //enabled = false;
+            // Invoke("Restart", 0.5f);
+            // enabled = false;
+        }
+        if (other.tag == "Door")
+        {
+            Door door = other.gameObject.GetComponent<Door>();
+            door.OpenDoor();
         }
     }
     private void OnDisable()
@@ -38,7 +54,8 @@ public class Player : MovingObject {
     public void PlayerDmg(int dmg)
     {
         health -= dmg;
-        CheckIfGameOver();
+        print("dmg");
+        //CheckIfGameOver();
     }
     public void PlayerHeal(int heal)
     {
@@ -46,7 +63,7 @@ public class Player : MovingObject {
     }
     private void Restart()
     {
-        Application.LoadLevel(Application.loadedLevel);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
     }
 	private void CheckIfGameOver()
     {
@@ -57,15 +74,18 @@ public class Player : MovingObject {
     }
 	// Update is called once per frame
 	void Update () {
+        if (!GameManager.instance.playersTurn) return;
         int horizontal = 0;
         int vertical = 0;
         horizontal = (int)Input.GetAxisRaw("Horizontal");
         vertical = (int)Input.GetAxisRaw("Vertical");
+        if (horizontal != 0)
+        {
+            vertical = 0;
+        }
         if (horizontal != 0 || vertical != 0)
         {
-            print("hi");
-            AttemptToMove<Door>(horizontal, vertical);
+            AttemptToMove<Wall>(horizontal, vertical);
         }
-        
 	}
 }

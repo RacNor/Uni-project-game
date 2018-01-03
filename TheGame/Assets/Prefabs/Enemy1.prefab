@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4326397057942234}
   - component: {fileID: 212375309221382314}
   - component: {fileID: 95902003489648922}
+  - component: {fileID: 114026874370231358}
   - component: {fileID: 61613176516833284}
   - component: {fileID: 50530161291991330}
   m_Layer: 8
@@ -105,6 +106,24 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114026874370231358
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1965448695595628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30426193a478283499f45f7ab5ad1900, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveTime: 0.1
+  colisonLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  vision: 4
+  explode: 2
+  damage: 100
 --- !u!212 &212375309221382314
 SpriteRenderer:
   m_ObjectHideFlags: 1

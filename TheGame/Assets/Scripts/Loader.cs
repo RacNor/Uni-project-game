@@ -10,6 +10,10 @@ class Loader : MonoBehaviour
         {
             Instantiate(gameManager);
         }
+        else
+        {
+            //GameManager.instance.InitGame();
+        }
     }
 }
 

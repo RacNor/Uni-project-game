@@ -9,7 +9,7 @@ public class MapGeneration : MonoBehaviour
 
     public enum TileType
     {
-        Wall, Floor, Corridor, Door, Edges, UnbreakableWalls, BreakableWalls,
+        Wall, UnbreakableWalls, BreakableWalls, Edges, Floor, Corridor, Door, 
     }
     public IntRange numRooms = new IntRange(4, 10);
     public IntRange roomWidth = new IntRange(3, 10);
@@ -25,13 +25,35 @@ public class MapGeneration : MonoBehaviour
     public GameObject[] mDoor;
     public GameObject mEnemy;
     public GameObject mExit;
+    public GameObject mCamera;
     private GameObject mBoardHolder;
-    private TileType[,] map;
+    [HideInInspector]public TileType[,] map;
     private ArrayList availablePositions = new ArrayList();
     public void GenerateLevel(int level)
     {
         mBoardHolder = new GameObject("BoardHolder");
         Generate(level);
+    }
+    public ArrayList Neigbours(Utils.Coord pos)
+    {
+        ArrayList result = new ArrayList();
+        if (pos.x + 1 < columns&&map[pos.x+1,pos.y]>=TileType.Floor)
+        {
+            result.Add(new Utils.Coord(pos.x + 1, pos.y));
+        }
+        if (pos.x -1 > 0&& map[pos.x - 1, pos.y] >= TileType.Floor)
+        {
+            result.Add(new Utils.Coord(pos.x - 1, pos.y));
+        }
+        if (pos.y + 1 < rows &&map[pos.x, pos.y+1] >= TileType.Floor)
+        {
+            result.Add(new Utils.Coord(pos.x, pos.y+1));
+        }
+        if (pos.y - 1 > 0 && map[pos.x, pos.y-1] >= TileType.Floor)
+        {
+            result.Add(new Utils.Coord(pos.x, pos.y-1));
+        }
+        return result;
     }
     private void Generate(int level=1)
     {
@@ -53,14 +75,18 @@ public class MapGeneration : MonoBehaviour
         for(int i = 0; i < 5; i++)
         {
             Vector3 position = GetRandomPosition();
-            GameObject tileInstance = Instantiate(mEnemy,position, Quaternion.identity) as GameObject;
+            GameObject tileInstance = Instantiate(mEnemy, GetRandomPosition(), Quaternion.identity) as GameObject;
             tileInstance.transform.parent = mBoardHolder.transform;
-            print("r");
         }
         GameObject exit = Instantiate(mExit, GetRandomPosition(), Quaternion.identity) as GameObject;
         exit.transform.parent = mBoardHolder.transform;
         GameObject player= Instantiate(GameManager.instance.player, GetRandomPosition(), Quaternion.identity) as GameObject;
-        player.transform.parent = mBoardHolder.transform;
+        GameObject camera = Instantiate(mCamera, new Vector3(player.transform.position.x, player.transform.position.y, -108f), Quaternion.identity) as GameObject;
+        Camera cam = camera.GetComponent<Camera>();
+        cam.backgroundColor = Color.black;
+        CameraController controller = cam.GetComponent<CameraController>();
+        controller.player = player;
+        //player.transform.parent = mBoardHolder.transform;
     }
 
     private void AddPositions()
@@ -337,6 +363,7 @@ public class MapGeneration : MonoBehaviour
                     //InstantiateFromArray(mWall, x, y);
                     if (map[x, y] == TileType.Door)
                     {
+                        InstantiateFromArray(mFloor, x, y);
                         InstantiateFromArray(mDoor, x, y);
                     }
                     if (map[x, y] == TileType.Floor || map[x,y]==TileType.Corridor)
