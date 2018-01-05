@@ -17,7 +17,7 @@ public class Enemy : MovingObject, IEquatable<Enemy>
     public int explode = 2;
     private bool isexploding = false;
     public static int attackSpeed=1;
-    public int damage=100;
+    public int damage=50;
     private int countDown = attackSpeed;
     public Animation deathAnimation;
     private float animationLength=0f;
@@ -25,7 +25,8 @@ public class Enemy : MovingObject, IEquatable<Enemy>
     {
         ID = GameManager.instance.GetEnemyId();
         GameManager.instance.AddEnemyToList(this);
-        target = GameObject.FindGameObjectWithTag("Player").transform;
+        //target = GameObject.FindGameObjectWithTag("Player").transform;
+        target = GameObject.Find("TestPlayer").transform;
         animator = GetComponent<Animator>();
         base.Start();
     }

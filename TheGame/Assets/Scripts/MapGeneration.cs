@@ -80,7 +80,9 @@ public class MapGeneration : MonoBehaviour
         }
         GameObject exit = Instantiate(mExit, GetRandomPosition(), Quaternion.identity) as GameObject;
         exit.transform.parent = mBoardHolder.transform;
-        GameObject player= Instantiate(GameManager.instance.player, GetRandomPosition(), Quaternion.identity) as GameObject;
+        //GameObject player= Instantiate(GameManager.instance.player, GetRandomPosition(), Quaternion.identity) as GameObject;
+        GameManager.instance.player.transform.position = GetRandomPosition();
+        GameObject player = GameManager.instance.player;
         GameObject camera = Instantiate(mCamera, new Vector3(player.transform.position.x, player.transform.position.y, -108f), Quaternion.identity) as GameObject;
         Camera cam = camera.GetComponent<Camera>();
         cam.backgroundColor = Color.black;

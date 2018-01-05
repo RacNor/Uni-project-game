@@ -123,7 +123,8 @@ MonoBehaviour:
     m_Bits: 256
   vision: 4
   explode: 2
-  damage: 100
+  damage: 50
+  deathAnimation: {fileID: 0}
 --- !u!212 &212375309221382314
 SpriteRenderer:
   m_ObjectHideFlags: 1

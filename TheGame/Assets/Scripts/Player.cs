@@ -1,11 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 public class Player : MovingObject {
 
     private int score;
     public int health = 100;
+    public Text HealthText;
+    public Text ScoreText;
 
     protected override void OnCantMove<T>(T component)
     {
@@ -15,10 +18,16 @@ public class Player : MovingObject {
     // Use this for initialization
     protected override void Start () {
         score = GameManager.instance.score;
+        health = GameManager.instance.health;
+        print("health" + health);
+        HealthText.text = "Health: " + health;
+        ScoreText.text = "Score: " + score;
         base.Start();
 	}
     protected override bool AttemptToMove<T>(int xDir, int yDir)
     {
+        HealthText.text = "Health: " + health;
+        ScoreText.text = "Score: " + score;
         bool result=base.AttemptToMove<T>(xDir, yDir);
         if (result)
         {
@@ -39,7 +48,7 @@ public class Player : MovingObject {
             //Disable the player object since level is over.
             //enabled = false;
             // Invoke("Restart", 0.5f);
-            // enabled = false;
+            enabled = false;
         }
         if (other.tag == "Door")
         {
@@ -50,12 +59,14 @@ public class Player : MovingObject {
     private void OnDisable()
     {
         GameManager.instance.score = score;
+        GameManager.instance.health = health;
     }
     public void PlayerDmg(int dmg)
     {
         health -= dmg;
         print("dmg");
-        //CheckIfGameOver();
+        HealthText.text ="-"+dmg+ " Health: " + health;
+        CheckIfGameOver();
     }
     public void PlayerHeal(int heal)
     {
@@ -63,7 +74,7 @@ public class Player : MovingObject {
     }
     private void Restart()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
+        SceneManager.LoadScene(1);
     }
 	private void CheckIfGameOver()
     {

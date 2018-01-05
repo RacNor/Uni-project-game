@@ -52,10 +52,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e3be8a4ca479ea4aa3cdb1933216c15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelStartDelay: 2
   turnDelay: 0.1
   player: {fileID: 1824789338253564, guid: 905b11445da08b94e8bbe391a53851e5, type: 2}
   mapScript: {fileID: 0}
   score: 0
+  health: 100
   playersTurn: 1
 --- !u!114 &114653958276266210
 MonoBehaviour:
