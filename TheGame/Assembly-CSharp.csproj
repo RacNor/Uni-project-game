@@ -56,6 +56,7 @@
      <Compile Include="Assets\Scripts\Door.cs" />
      <Compile Include="Assets\Scripts\Enemy.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
+     <Compile Include="Assets\Scripts\GameOver.cs" />
      <Compile Include="Assets\Scripts\HighScoresJson.cs" />
      <Compile Include="Assets\Scripts\HSController.cs" />
      <Compile Include="Assets\Scripts\IntRange.cs" />
@@ -70,6 +71,7 @@
      <Compile Include="Assets\Scripts\ScoreController.cs" />
      <Compile Include="Assets\Scripts\ScoreEntry.cs" />
      <Compile Include="Assets\Scripts\ScoreTable.cs" />
+     <Compile Include="Assets\Scripts\SubmitScore.cs" />
      <Compile Include="Assets\Scripts\Utils.cs" />
      <Compile Include="Assets\Scripts\Wall.cs" />
  <Reference Include="UnityEngine.UI">

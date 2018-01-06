@@ -53,7 +53,7 @@ public class Enemy : MovingObject, IEquatable<Enemy>
         }
         if (find)
         {
-            print("x= " + targetCoord.x + " y= " + targetCoord.y);
+            //print("x= " + targetCoord.x + " y= " + targetCoord.y);
             path = FindPath(myCoord, targetCoord);
         }
         find = false;
@@ -100,7 +100,6 @@ public class Enemy : MovingObject, IEquatable<Enemy>
     }
     private void Explode()
     {
-        print("ye");
         if (!isexploding)
         {
             animator.SetTrigger("EnemyExploding");
@@ -108,7 +107,6 @@ public class Enemy : MovingObject, IEquatable<Enemy>
         isexploding = true;
         if (countDown != 0)
         {
-            print("what");
             countDown--;
             return;
         }
@@ -142,8 +140,6 @@ public class Enemy : MovingObject, IEquatable<Enemy>
     }
     public ArrayList FindPath(Utils.Coord start, Utils.Coord dest)
     {
-        Debug.Log("find");
-        this.path = new ArrayList();
         List<Utils.Coord> openList = new List<Utils.Coord>();
         List<Utils.Coord> closedList = new List<Utils.Coord>();
         ArrayList cameFrom = new ArrayList();

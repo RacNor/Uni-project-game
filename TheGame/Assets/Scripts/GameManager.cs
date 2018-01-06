@@ -16,9 +16,11 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public int score = 0;
     [HideInInspector] public int health = 100;
     [HideInInspector] public bool playersTurn = true;
-
+    [HideInInspector] public static SubmitScore submitScore;
     private int level = 0;
     private GameObject levelImage;
+    private GameObject button;
+    [HideInInspector] public GameObject nameField;
     private Text levelText;
     private List<Enemy> enemies;
     private bool enemiesMoving;
@@ -26,7 +28,6 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-        print(health);
         if (instance == null)
         {
             instance = this;
@@ -38,8 +39,7 @@ public class GameManager : MonoBehaviour
         enemies = new List<Enemy>();
         DontDestroyOnLoad(this);
         mapScript = GetComponent<MapGeneration>();
-       
-        //InitGame();
+        submitScore = GetComponent<SubmitScore>();
     }
     public int GetEnemyId()
     {
@@ -54,7 +54,6 @@ public class GameManager : MonoBehaviour
     }
     static private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
     {
-        print(SceneManager.GetActiveScene().name);
         if (SceneManager.GetActiveScene().name=="Main")
         {
             instance.level++;
@@ -85,12 +84,43 @@ public class GameManager : MonoBehaviour
     {
         levelText.text = "You died\n your Score: " + score;
         levelImage.SetActive(true);
+        submitScore.GetData();
+        //enabled = false;
+        //Destroy(gameObject);
+        //SceneManager.LoadScene(0);
+    }
+    public void ExitGame()
+    {
         enabled = false;
         Destroy(gameObject);
         SceneManager.LoadScene(0);
     }
+    public void CheckIfTopScore(HighScoresJson scores)
+    {
+        bool enterTopScore = false;
+        int count = scores.data.Count;
+        if ( count< 10)
+        {
+            enterTopScore = true;
+        }
+        else
+        {
+            int worstScore= scores.data[count - 1].score;
+            if (score > worstScore)
+            {
+                enterTopScore = true;
+            }
+        }
+        button.SetActive(true);
+        nameField.SetActive(enterTopScore);
+    }
     public void InitGame()
     {
+        button = GameObject.Find("EndButton");
+        button.SetActive(false);
+        nameField = GameObject.Find("NameField");
+        nameField.SetActive(false);
+
         player = GameObject.Find("TestPlayer");
         loading = true;
         levelImage = GameObject.Find("LevelImage");

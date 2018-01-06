@@ -12,14 +12,12 @@ public class Player : MovingObject {
 
     protected override void OnCantMove<T>(T component)
     {
-        print("Door");
     }
 
     // Use this for initialization
     protected override void Start () {
         score = GameManager.instance.score;
         health = GameManager.instance.health;
-        print("health" + health);
         HealthText.text = "Health: " + health;
         ScoreText.text = "Score: " + score;
         base.Start();
@@ -44,10 +42,6 @@ public class Player : MovingObject {
         if (other.tag == "Exit")
         {
             Invoke("Restart", 0.5f);
-
-            //Disable the player object since level is over.
-            //enabled = false;
-            // Invoke("Restart", 0.5f);
             enabled = false;
         }
         if (other.tag == "Door")
@@ -64,7 +58,6 @@ public class Player : MovingObject {
     public void PlayerDmg(int dmg)
     {
         health -= dmg;
-        print("dmg");
         HealthText.text ="-"+dmg+ " Health: " + health;
         CheckIfGameOver();
     }

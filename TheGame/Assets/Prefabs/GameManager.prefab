@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4082696110832628}
   - component: {fileID: 114319033484602714}
   - component: {fileID: 114653958276266210}
+  - component: {fileID: 114323906056534942}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -59,6 +60,17 @@ MonoBehaviour:
   score: 0
   health: 100
   playersTurn: 1
+--- !u!114 &114323906056534942
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1803462692941044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a1e1c5b2beb9f740b59b40c48ebd87c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114653958276266210
 MonoBehaviour:
   m_ObjectHideFlags: 1
