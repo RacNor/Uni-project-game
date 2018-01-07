@@ -22,7 +22,6 @@ public class Utils
         {
             hashString += Convert.ToString(hashBytes[i], 16).PadLeft(2, '0');
         }
-
         return hashString.PadLeft(32, '0');
     }
     public class Coord :IComparable<Coord>, IEquatable<Coord>

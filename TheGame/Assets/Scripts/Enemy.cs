@@ -13,6 +13,7 @@ public class Enemy : MovingObject, IEquatable<Enemy>
     private ArrayList path;
     private Animator animator;
     private bool find = false;
+    private bool skip = false;
     public int vision=4;
     public int explode = 2;
     private bool isexploding = false;
@@ -53,26 +54,13 @@ public class Enemy : MovingObject, IEquatable<Enemy>
         }
         if (find)
         {
-            //print("x= " + targetCoord.x + " y= " + targetCoord.y);
-            path = FindPath(myCoord, targetCoord);
+            if (!skip)
+            {
+                path = FindPath(myCoord, targetCoord);
+            }
+            skip = !skip;
         }
         find = false;
-        /* int xDir = 0;
-         int yDir = 0;
-         if (Mathf.Abs(target.position.x - transform.position.x) < float.Epsilon)
-         {
-             yDir = target.position.y > transform.position.y ? 1 : -1;
-         }
-         else
-         {
-             xDir = target.position.x > transform.position.x ? 1 : -1;
-         }*//*
-        if (skipMove)
-        {
-            skipMove = false;
-            return false;
-        }
-        skipMove = true;*/
         if (path == null)
         {
             return false;
@@ -120,8 +108,6 @@ public class Enemy : MovingObject, IEquatable<Enemy>
         {
             Player player=target.GetComponent<Player>();
             player.PlayerDmg(damage);
-            
-            //gameObject.SetActive(false);
         }
         animator.SetTrigger("EnemyExplode");
         new WaitForEndOfFrame();
