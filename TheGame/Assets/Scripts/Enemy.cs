@@ -33,9 +33,7 @@ public class Enemy : MovingObject, IEquatable<Enemy>
     }
     protected override bool AttemptToMove<T>(int xDir, int yDir)
     {
-
         return base.AttemptToMove<T>(xDir, yDir);
-
     }
     public bool MoveEnemy()
     {
@@ -218,7 +216,6 @@ public class Enemy : MovingObject, IEquatable<Enemy>
         }
         return score;
     }
-
     public bool Equals(Enemy other)
     {
         return this.ID.Equals(other.ID);

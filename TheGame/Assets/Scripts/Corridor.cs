@@ -7,7 +7,6 @@ using System.Text;
 public class Corridor
 {
     public List<Utils.Coord> corridorTiles;
-
     public Corridor(int startX, int startY, int endX, int endY)
     {
         corridorTiles = new List<Utils.Coord>();

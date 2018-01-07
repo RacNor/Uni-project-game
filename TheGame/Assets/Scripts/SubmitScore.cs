@@ -40,22 +40,36 @@ public class SubmitScore: MonoBehaviour
     IEnumerator PostScore(string name,int score)
     {
         string hash = Utils.Md5Sum(name + score + secretKey);
-        List<IMultipartFormSection> formData = new List<IMultipartFormSection>
+        /*List<IMultipartFormSection> formData = new List<IMultipartFormSection>
         {
             new MultipartFormDataSection("name=" + name),
             new MultipartFormDataSection("score="+score),
             new MultipartFormDataSection("hash="+hash)
         };
-        UnityWebRequest www = UnityWebRequest.Post(addScoreURL, formData);
-        yield return www.Send();
+        UnityWebRequest www = UnityWebRequest.Post(addScoreURL, formData);*/
+        WWWForm form = new WWWForm();
+        form.AddField("name", name);
+        form.AddField("score", score);
+        form.AddField("hash", hash);
 
-        if (www.isNetworkError || www.isHttpError)
+        WWW hs_post = new WWW(addScoreURL,form);
+        yield return hs_post;
+        if (hs_post.error != null)
+        {
+            print("There was an error posting the high score: " + hs_post.error);
+        }
+        else
+        {
+            Debug.Log("Success");
+        }
+       /* if (www.isNetworkError || www.isHttpError)
         {
             Debug.Log(www.error);
         }
         else
         {
             Debug.Log("Success");
-        }
+        }*/
+        GameManager.instance.ExitGame();
     }
 }

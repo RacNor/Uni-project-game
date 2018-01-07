@@ -14,9 +14,21 @@ public class GameOver:MonoBehaviour
         {
             InputField field= GameManager.instance.nameField.GetComponent<InputField>();
             string name = field.text;
+            name = RemoveWhitespace(name);
+            print("name " + name + ";");
             GameManager.submitScore.SubmitScoreToServer(name, score);
         }
-        GameManager.instance.ExitGame();
+        else
+        {
+            GameManager.instance.ExitGame();
+        }
+        
+    }
+    public string RemoveWhitespace(string input)
+    {
+        return new string(input.ToCharArray()
+            .Where(c => !Char.IsWhiteSpace(c))
+            .ToArray());
     }
 }
 

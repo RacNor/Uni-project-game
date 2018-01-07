@@ -60,6 +60,7 @@ MonoBehaviour:
   score: 0
   health: 100
   playersTurn: 1
+  nameField: {fileID: 0}
 --- !u!114 &114323906056534942
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -86,16 +87,16 @@ MonoBehaviour:
     mMin: 4
     mMax: 10
   roomWidth:
-    mMin: 3
-    mMax: 10
+    mMin: 5
+    mMax: 12
   roomHeight:
-    mMin: 3
-    mMax: 10
+    mMin: 5
+    mMax: 12
   coordinates:
-    mMin: 50
-    mMax: 60
-  rows: 100
-  columns: 100
+    mMin: 90
+    mMax: 110
+  rows: 200
+  columns: 200
   mFloor:
   - {fileID: 106160, guid: 6b156ea7b856e304987cd569141c9ea2, type: 2}
   mWall:

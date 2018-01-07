@@ -9,13 +9,12 @@ public class MapGeneration : MonoBehaviour
 
     public enum TileType
     {
-        Wall, UnbreakableWalls, BreakableWalls, Edges, Floor, Corridor, Door, 
+        Void, UnbreakableWalls, BreakableWalls, Edges, Floor, Corridor, Door, 
     }
     public IntRange numRooms = new IntRange(4, 10);
     public IntRange roomWidth = new IntRange(3, 10);
     public IntRange roomHeight = new IntRange(3, 10);
-
-    public IntRange coordinates = new IntRange(50, 60);
+    public IntRange coordinates = new IntRange(90, 110);
     public int rows = 100;
     public int columns = 100;
     private List<Room> rooms;
@@ -61,18 +60,19 @@ public class MapGeneration : MonoBehaviour
         CreateRooms();
         Intersect();
         availablePositions = new ArrayList();
+        PlacePlayer();
         AddPositions();
-        //ClearConnectedRooms();
         corridors = new List<Corridor>();
         ConnectRooms();
+        CorridorPadding();
         InnerWallPadding(5, TileType.UnbreakableWalls);
         BreakableWalls();
         InnerWallPadding();
         InitializeTyles();
         InitCorridors();
         PlaceGameobject();
-
-        for(int i = 0; i < 5; i++)
+        int enemyCount =(int)Math.Log(level, 2) + 2;
+        for(int i = 0; i < enemyCount; i++)
         {
             Vector3 position = GetRandomPosition();
             GameObject tileInstance = Instantiate(mEnemy, GetRandomPosition(), Quaternion.identity) as GameObject;
@@ -80,25 +80,31 @@ public class MapGeneration : MonoBehaviour
         }
         GameObject exit = Instantiate(mExit, GetRandomPosition(), Quaternion.identity) as GameObject;
         exit.transform.parent = mBoardHolder.transform;
-        //GameObject player= Instantiate(GameManager.instance.player, GetRandomPosition(), Quaternion.identity) as GameObject;
-        GameManager.instance.player.transform.position = GetRandomPosition();
+    }
+    private void PlacePlayer()
+    {
+        Room room=rooms[0];
+        IntRange xRange = new IntRange(room.xPos+1, room.xPos + room.roomWidth-1);
+        IntRange yRange = new IntRange(room.yPos+1, room.yPos + room.roomHeight-1);
+        room.PlayerInTheRoom = true;
         GameObject player = GameManager.instance.player;
+        int x = xRange.Random;
+        int y = yRange.Random;
+        GameManager.instance.player.transform.position = new Vector3(x, y, 0f);
         GameObject camera = Instantiate(mCamera, new Vector3(player.transform.position.x, player.transform.position.y, -108f), Quaternion.identity) as GameObject;
         Camera cam = camera.GetComponent<Camera>();
         cam.backgroundColor = Color.black;
         CameraController controller = cam.GetComponent<CameraController>();
         controller.player = player;
-        //player.transform.parent = mBoardHolder.transform;
     }
-
     private void AddPositions()
     {
         foreach(Room room in rooms)
         {
-            /*if (room.PlayerInTheRoom)
+            if (room.PlayerInTheRoom)
             {
                 continue;
-            }*/
+            }
             int xEnd = room.xPos + room.roomWidth-1;
             int yEnd = room.yPos + room.roomHeight-1;
             for (int x = room.xPos; x < xEnd; x++)
@@ -133,6 +139,27 @@ public class MapGeneration : MonoBehaviour
             }
         }
     }
+    private void CorridorPadding(int padding=1,TileType tileType = TileType.Edges)
+    {
+        foreach(Corridor corridor in corridors)
+        {
+            foreach(Utils.Coord coord in corridor.corridorTiles)
+            {
+                int maxX = coord.x + padding-2;
+                int maxY = coord.y + padding-2;
+                for(int xCoord = coord.x - padding; xCoord < maxX + 1; xCoord++)
+                {
+                    map[xCoord, coord.y - padding] = tileType;
+                    map[xCoord, maxY] = tileType;
+                }
+                for (int yCoord = coord.y - padding; yCoord < maxY; yCoord++)
+                {
+                    map[coord.x-padding,yCoord] = tileType;
+                    map[maxX, yCoord] = tileType;
+                }
+            }
+        }
+    }
     private void InnerWallPadding(int padding = 1, TileType tileType = TileType.Edges)
     {
         foreach (Room room in rooms)
@@ -152,19 +179,16 @@ public class MapGeneration : MonoBehaviour
             }
         }
     }
-
-    void initializeArray()
+    void InitializeArray()
     {
         for (int x = 0; x < rows; x++)
         {
             for (int y = 0; y < columns; y++)
             {
-                map[x, y] = TileType.Wall;
+                map[x, y] = TileType.Void;
             }
         }
     }
-
-
     private void ClearConnectedRooms()
     {
         foreach (Room room in rooms)
@@ -187,8 +211,8 @@ public class MapGeneration : MonoBehaviour
                 {
                     Room A = rooms[i];
                     Room B = rooms[j];
-                    int xCollide = A.intersect(B, 0);
-                    int yCollide = A.intersect(B, 1);
+                    int xCollide = A.Intersect(B, 0);
+                    int yCollide = A.Intersect(B, 1);
                     if (xCollide != 0 && yCollide != 0)
                     {
                         continueLoop = true;
@@ -259,7 +283,7 @@ public class MapGeneration : MonoBehaviour
             }
             foreach (Room B in roomListB)
             {
-                if (A == B || A.isConnected(B))
+                if (A == B || A.IsConnected(B))
                 {
                     continue;
                 }
@@ -359,10 +383,6 @@ public class MapGeneration : MonoBehaviour
             {
                 for (int y = 0; y < columns; y++)
                 {
-                    //InstantiateFromArray(mFloor, x, y);
-                    //InstantiateFromArray(mDoor, x, y);
-                    //InstantiateFromArray(mFloor, x, y);
-                    //InstantiateFromArray(mWall, x, y);
                     if (map[x, y] == TileType.Door)
                     {
                         InstantiateFromArray(mFloor, x, y);
@@ -383,16 +403,9 @@ public class MapGeneration : MonoBehaviour
 
     void InstantiateFromArray(GameObject[] prefabs, float xCoord, float yCoord)
     {
-        // Create a random index for the array.
         int randomIndex = UnityEngine.Random.Range(0, prefabs.Length);
-
-        // The position to be instantiated at is based on the coordinates.
         Vector3 position = new Vector3(xCoord, yCoord, 0f);
-
-        // Create an instance of the prefab from the random index of the array.
         GameObject tileInstance = Instantiate(prefabs[randomIndex], position, Quaternion.identity) as GameObject;
-
-        // Set the tile's parent to the board holder.
         tileInstance.transform.parent = mBoardHolder.transform;
     }
     

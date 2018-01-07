@@ -43,7 +43,6 @@ public class Room
                 room.SetIsConnectedToMain();
             }
         }
-
     }
     public void SetupRoom(int shift, int shiftCase)
     {
@@ -99,11 +98,11 @@ public class Room
         A.connectedRooms.Add(B);
         B.connectedRooms.Add(A);
     }
-    public bool isConnected(Room otherRoom)
+    public bool IsConnected(Room otherRoom)
     {
         return connectedRooms.Contains(otherRoom);
     }
-    public int intersect(Room otherRoom, int intersectCase)
+    public int Intersect(Room otherRoom, int intersectCase)
     {
         int min1;
         int max1;
@@ -112,21 +111,12 @@ public class Room
         switch (intersectCase)
         {
             case 0:
-                //min1 = xPos;
                 min1 = xPos-1;
-                //max1 = xPos + roomWidth - 1;
                 max1 = xPos + roomWidth;
-                //min2 = otherRoom.xPos;
-                //max2 = otherRoom.xPos + otherRoom.roomWidth - 1;
                 min2 = otherRoom.xPos-1;
                 max2 = otherRoom.xPos + otherRoom.roomWidth;
                 break;
             default:
-                /*min1 = yPos;
-                max1 = yPos + roomHeight - 1;
-                min2 = otherRoom.yPos;
-                max2 = otherRoom.yPos + otherRoom.roomHeight - 1;*/
-
                 min1 = yPos-1;
                 max1 = yPos + roomHeight;
                 min2 = otherRoom.yPos-1;
@@ -143,7 +133,6 @@ public class Room
             }
             else
             {
-
                 return dist1 + 5;
             }
         }
@@ -151,6 +140,5 @@ public class Room
         {
             return 0;
         }
-
     }
 }

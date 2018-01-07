@@ -221,7 +221,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Score_Table: {fileID: 575883266}
-  Score_Entry: {fileID: 1327235952526604, guid: 379c22fd3896006419b9accf5ec4b9e5,
+  Score_Entry: {fileID: 1327235952526604, guid: a1a6222f70633ab42b8a83a9bcc68a79,
     type: 2}
 --- !u!1 &379686982
 GameObject:
