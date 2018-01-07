@@ -15,7 +15,6 @@ public class GameOver:MonoBehaviour
             InputField field= GameManager.instance.nameField.GetComponent<InputField>();
             string name = field.text;
             name = RemoveWhitespace(name);
-            print("name " + name + ";");
             GameManager.submitScore.SubmitScoreToServer(name, score);
         }
         else

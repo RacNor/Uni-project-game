@@ -41,8 +41,11 @@ public class Player : MovingObject {
     {
         if (other.tag == "Exit")
         {
-            Invoke("Restart", 0.5f);
+            int level = GameManager.instance.level;
+            int cof = level < 10 ? level : 10;
+            score += cof * 10;
             enabled = false;
+            Invoke("Restart", 0.5f);
         }
         if (other.tag == "Door")
         {

@@ -32,7 +32,6 @@ class ScoreController:MonoBehaviour
     }
     IEnumerator GetScores()
     {
-        Text text = gameObject.GetComponent<Text>();
         WWW hs_get = new WWW(highscoreURL);
         yield return hs_get;
         if (hs_get.error != null)

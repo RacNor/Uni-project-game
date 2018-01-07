@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public int health = 100;
     [HideInInspector] public bool playersTurn = true;
     [HideInInspector] public static SubmitScore submitScore;
-    private int level = 0;
+    [HideInInspector] public int level = 0;
     private GameObject levelImage;
     private GameObject button;
     [HideInInspector] public GameObject nameField;
