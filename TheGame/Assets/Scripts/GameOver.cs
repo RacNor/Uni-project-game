@@ -7,26 +7,16 @@ using UnityEngine.UI;
 
 public class GameOver:MonoBehaviour
 {
-    
-    public void Start()
-    {
-
-    }
     public void Submit()
     {
         int score = GameManager.instance.score;
         if (GameManager.instance.nameField.activeSelf)
         {
-            print("yes");
-            Text text = GameManager.instance.nameField.GetComponent<Text>();
-            string name = text.text;
-            print(name);
+            InputField field= GameManager.instance.nameField.GetComponent<InputField>();
+            string name = field.text;
+            GameManager.submitScore.SubmitScoreToServer(name, score);
         }
-        else
-        {
-            print("no");
-        }
-        //GameManager.submitScore.SubmitScoreToServer("labas", score);
+        GameManager.instance.ExitGame();
     }
 }
 

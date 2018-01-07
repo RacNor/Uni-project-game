@@ -85,9 +85,6 @@ public class GameManager : MonoBehaviour
         levelText.text = "You died\n your Score: " + score;
         levelImage.SetActive(true);
         submitScore.GetData();
-        //enabled = false;
-        //Destroy(gameObject);
-        //SceneManager.LoadScene(0);
     }
     public void ExitGame()
     {
