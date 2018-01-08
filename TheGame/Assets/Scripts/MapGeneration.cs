@@ -6,7 +6,6 @@ using Random = UnityEngine.Random;
 
 public class MapGeneration : MonoBehaviour
 {
-
     public enum TileType
     {
         Void, UnbreakableWalls, BreakableWalls, Edges, Floor, Corridor, Door, 
@@ -139,15 +138,15 @@ public class MapGeneration : MonoBehaviour
             }
         }
     }
-    private void CorridorPadding(int padding=1,TileType tileType = TileType.Edges)
+    private void CorridorPadding(int padding=2,TileType tileType = TileType.Edges)
     {
         foreach(Corridor corridor in corridors)
         {
             foreach(Utils.Coord coord in corridor.corridorTiles)
             {
-                int maxX = coord.x + padding-2;
-                int maxY = coord.y + padding-2;
-                for(int xCoord = coord.x - padding; xCoord < maxX + 1; xCoord++)
+                int maxX = coord.x + padding;
+                int maxY = coord.y + padding;
+                for(int xCoord = coord.x - padding; xCoord < maxX+1; xCoord++)
                 {
                     map[xCoord, coord.y - padding] = tileType;
                     map[xCoord, maxY] = tileType;
@@ -240,7 +239,11 @@ public class MapGeneration : MonoBehaviour
             }
         } while (continueLoop);
     }
-
+    /*
+     * Šis metodas rašytas nemano,
+     * bet paimtas iš youtube tutorial
+     * tačiau puikiai suvokių kaip jis veikia
+     */
     void ConnectRooms(bool forceConnectionToMain = false)
     {
         List<Room> roomListA = new List<Room>();

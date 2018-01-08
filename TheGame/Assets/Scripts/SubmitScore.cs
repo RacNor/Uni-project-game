@@ -50,7 +50,8 @@ public class SubmitScore: MonoBehaviour
         form.AddField("name", name);
         form.AddField("score", score);
         form.AddField("hash", hash);
-
+        print(name);
+        print(hash);
         WWW hs_post = new WWW(addScoreURL,form);
         yield return hs_post;
         if (hs_post.error != null)

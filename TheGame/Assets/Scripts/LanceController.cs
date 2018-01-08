@@ -19,7 +19,10 @@ public class LanceController : MovingObject {
         if(collision.tag == "Enemy")
         {
             print("kill!!!!!");
-            GameManager.instance.RemoveEnemyFromList(collision.gameObject.GetComponent<Enemy>());
+            Enemy enemy = collision.gameObject.GetComponent<Enemy>();
+            Player player = GameManager.instance.player.GetComponent<Player>();
+            player.AddScore(enemy.score);
+            GameManager.instance.RemoveEnemyFromList(enemy);
             Destroy(collision.gameObject);
             Destroy(this.gameObject);
         }

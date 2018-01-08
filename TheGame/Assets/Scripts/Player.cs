@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 public class Player : MovingObject {
 
-    private int score;
+    [HideInInspector]public int score;
     public int health = 100;
     public Text HealthText;
     public Text ScoreText;
@@ -41,7 +41,11 @@ public class Player : MovingObject {
         return result;
 
     }
-
+    public void AddScore(int score)
+    {
+        ScoreText.text = "Score: " + this.score+" +"+score;
+        this.score += score;
+    }
     private bool AttemptToShoot()
     {
         Vector2 positionOnScreen = Camera.main.WorldToViewportPoint(transform.position);

@@ -16,6 +16,7 @@ public class Enemy : MovingObject, IEquatable<Enemy>
     private bool skip = false;
     public int vision=4;
     public int explode = 2;
+    public int score = 20;
     private bool isexploding = false;
     public static int attackSpeed=1;
     public int damage=50;
