@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour {
 
     private void FixedUpdate()
     {
-        if(Input.GetKey(KeyCode.UpArrow))
+        if (Input.GetKey(KeyCode.UpArrow))
         {
             Vector3 position = this.transform.position;
             position.y += (float)(speed * 0.1);

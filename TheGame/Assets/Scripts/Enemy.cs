@@ -24,12 +24,15 @@ public class Enemy : MovingObject, IEquatable<Enemy>
     private float animationLength=0f;
     protected override void Start()
     {
-        ID = GameManager.instance.GetEnemyId();
-        GameManager.instance.AddEnemyToList(this);
-        //target = GameObject.FindGameObjectWithTag("Player").transform;
-        target = GameObject.Find("TestPlayer").transform;
-        animator = GetComponent<Animator>();
-        base.Start();
+        if (this.gameObject != null)
+        {
+            ID = GameManager.instance.GetEnemyId();
+            GameManager.instance.AddEnemyToList(this);
+            //target = GameObject.FindGameObjectWithTag("Player").transform;
+            target = GameObject.Find("TestPlayer").transform;
+            animator = GetComponent<Animator>();
+            base.Start();
+        }
     }
     protected override bool AttemptToMove<T>(int xDir, int yDir)
     {

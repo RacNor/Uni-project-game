@@ -98,7 +98,7 @@ Animator:
   m_GameObject: {fileID: 1965973649071056}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: ee96c55c7a0d90b42b3c3af7449d013f, type: 2}
+  m_Controller: {fileID: 9100000, guid: 56975858f5dc30c479747a12484cb021, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -124,6 +124,7 @@ MonoBehaviour:
   health: 100
   HealthText: {fileID: 0}
   ScoreText: {fileID: 0}
+  spell1: {fileID: 1118153746015922, guid: 78f4cea3689300c4183d1b236755cf11, type: 2}
 --- !u!212 &212481748024793618
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -164,5 +165,3 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
-  m_MaskInteraction: 0
